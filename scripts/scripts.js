@@ -1,33 +1,46 @@
-const first = document.querySelector('.one')
-const two = document.querySelector('.two')
-const three = document.querySelector('.three')
-const four = document.querySelector('.four')
-const five = document.querySelector('.five')
-const six = document.querySelector('.six')
-const seven = document.querySelector('.seven')
-const eight = document.querySelector('.eight')
-const nine = document.querySelector('.nine')
-console.log(first)
+
+let items = document.querySelectorAll('.items')
+const x = document.querySelector('.eks')
+const o = document.querySelector('.ow')
+
+let choice
 
 
+
+let itemArr = [...items]
+console.log(itemArr)
 
 let boardState = [
-    ['','',''],
-    ['','2',''],
-    ['','','']
+   ['', '', ''],
+   ['', 'hell', ''],
+   ['', '', ''],
 ]
 
-let hello = 'hey';
-boardState[0][2] = hello
 
-first.textContent = boardState[0][0]
-two.textContent = boardState[0][1]
-three.textContent = boardState[0][2]
 
-four.textContent = boardState[1][0]
-five.textContent = boardState[1][1]
-six.textContent = boardState[1][2]
 
-seven.textContent = boardState[2][0]
-eight.textContent = boardState[2][1]
-nine.textContent = boardState[2][2]
+x.addEventListener('click', () => {
+    choice = 'x'
+    console.log(choice)
+})
+
+o.addEventListener('click', () => {
+    choice = 'o'
+    console.log(choice)
+})
+
+
+
+itemArr.forEach(element => {
+   element.addEventListener('click', e => {
+      element.textContent = choice
+
+      if(choice === 'x'){
+          choice = 'o'
+      } else {
+          choice = 'x'
+      }
+   })
+})
+
+
