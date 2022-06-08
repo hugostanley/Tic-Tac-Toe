@@ -1,0 +1,76 @@
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
+    height: 90vh;
+    width: 90vw;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    grid-template-rows: repeat(3,1fr);
+ 
+    margin: 0 auto;
+
+
+
+}
+
+.items {
+    border: 5px solid var(--primary-dark);
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
+    min-height: 9vw;
+    max-height: 9vw;
+    height: 9vw;
+    width: 9vw;
+    min-width: 9vw;
+    max-width: 9vw;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.one {
+    border-top: none;
+    border-left: none;
+}
+
+.two {
+    border-top: none;
+}
+
+.three {
+    border-top: none;
+    border-right: none;
+}
+
+.four {
+    border-left: none;
+}
+
+.six {
+    border-right: none;
+}
+
+.seven {
+    border-left: none;
+    border-bottom: none;
+}
+
+.eight {
+    border-bottom: none;
+}
+
+.nine {
+    border-right: none;
+    border-bottom: none;
+}

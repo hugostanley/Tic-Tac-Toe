@@ -1,29 +1,12 @@
 @use './base/' as*;
+@use './abstracts/' as *;
+@use './layout/' as *;
 
-main {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.x, .o {
+    font-size: 2rem;
 
-    height: 100vh;
-    width: 100vw;
-}
 
-.container {
-    display: grid;
-    grid-template-columns: repeat(3,1fr);
-    grid-template-rows: repeat(3,1fr);
-    border: 1px solid black;
-    margin: 0 auto;
-
-    height: 50vh;
-    width: 80vw;
-
-}
-
-.items {
-    border: 0.5px solid black;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    &:hover{
+        cursor: pointer;
+    }
 }

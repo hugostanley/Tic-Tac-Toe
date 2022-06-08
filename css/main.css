@@ -2,31 +2,92 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  font-family: "Montserrat", sans-serif;
+}
+
+body {
+  background-color: var(--primary-light);
+}
+
+:root {
+  --primary-light: #3F72AF;
+  --primary-dark: #112D4E;
+  --secondary-light: #F9F7F7;
+  --primary-yellow: #F1C300;
 }
 
 main {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  width: 100vw;
+  height: 90vh;
+  width: 90vw;
 }
 
 .container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
-  border: 1px solid black;
   margin: 0 auto;
-  height: 50vh;
-  width: 80vw;
 }
 
 .items {
-  border: 0.5px solid black;
+  border: 5px solid var(--primary-dark);
   display: flex;
   justify-content: center;
   align-items: center;
+  min-height: 9vw;
+  max-height: 9vw;
+  height: 9vw;
+  width: 9vw;
+  min-width: 9vw;
+  max-width: 9vw;
+}
+.items:hover {
+  cursor: pointer;
+}
+
+.one {
+  border-top: none;
+  border-left: none;
+}
+
+.two {
+  border-top: none;
+}
+
+.three {
+  border-top: none;
+  border-right: none;
+}
+
+.four {
+  border-left: none;
+}
+
+.six {
+  border-right: none;
+}
+
+.seven {
+  border-left: none;
+  border-bottom: none;
+}
+
+.eight {
+  border-bottom: none;
+}
+
+.nine {
+  border-right: none;
+  border-bottom: none;
+}
+
+.x, .o {
+  font-size: 2rem;
+}
+.x:hover, .o:hover {
+  cursor: pointer;
 }
 
 /*# sourceMappingURL=main.css.map */
