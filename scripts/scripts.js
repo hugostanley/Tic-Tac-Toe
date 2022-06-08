@@ -1,46 +1,74 @@
-
 let items = document.querySelectorAll('.items')
-const x = document.querySelector('.eks')
-const o = document.querySelector('.ow')
+const yek = document.querySelector('.eks')
+const yow = document.querySelector('.ow')
 
 let choice
-
-
 
 let itemArr = [...items]
 console.log(itemArr)
 
 let boardState = [
-   ['', '', ''],
-   ['', 'hell', ''],
-   ['', '', ''],
+   ['1', '2', '3'],
+   ['2', '3', '4'],
+   ['2', '2', '2'],
 ]
 
-
-
-
-x.addEventListener('click', () => {
-    choice = 'x'
-    console.log(choice)
+yek.addEventListener('click', () => {
+   choice = 'x'
+   console.log(choice)
+   game2()
 })
 
-o.addEventListener('click', () => {
-    choice = 'o'
-    console.log(choice)
+yow.addEventListener('click', () => {
+   choice = 'o'
+   console.log(choice)
+   game2()
 })
 
+// function game() {
+//    itemArr.forEach(element => {
+//       element.addEventListener('click', e => {
+//          element.textContent = choice
+//          element.style.pointerEvents = 'none'
+//          if (choice === 'x') {
+//             choice = 'o'
+//          } else {
+//             choice = 'x'
+//          }
+//       })
+//    })
+// }
 
+// function game2() {
+//    for (let i = 0; i < itemArr.length; i++) {
+//       for ( let x = 0; x < itemArr[i].length; i++) {
+//          itemArr[x] = choice
+//          itemArr[x].textContent = choice
+//       }
+//    }
+// }
 
-itemArr.forEach(element => {
-   element.addEventListener('click', e => {
-      element.textContent = choice
+function game2() {
+   for (let i = 0; i < boardState.length; i++) {
 
-      if(choice === 'x'){
-          choice = 'o'
-      } else {
-          choice = 'x'
+      let cell = boardState[i]
+      for (let x = 0; x < cell.length ;i++) {
+         // itemArr.forEach(element => {
+         //    element.addEventListener('click', e => {
+         //       element.textContent = choice
+         //       element.style.pointerEvents = 'none'
+
+         //       if (choice === 'x') {
+         //          choice = 'o'
+         //       } else {
+         //          choice = 'x'
+         //       }
+         //       boardState[i][x] = choice
+         //       console.log(boardState)
+         //    })
+         // })
+        console.log(boardState[x])
       }
-   })
-})
-
+   }
+}
 
