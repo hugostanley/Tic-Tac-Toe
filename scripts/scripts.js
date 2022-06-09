@@ -1,30 +1,39 @@
+// DOM Selectors
 let items = document.querySelectorAll('.items')
-const yek = document.querySelector('.eks')
-const yow = document.querySelector('.ow')
+const xSelect = document.querySelector('[data-x-selection]')
+const oSelect = document.querySelector('[data-o-selection]')
+console.log(items)
 
+//Reusable Variables
 let choice
-
 let itemArr = [...items]
-
+console.log(itemArr)
 let boardState = [
    ['', '', ''],
    ['', '', ''],
    ['', '', ''],
 ]
+let boardhistory = []
 
-yek.addEventListener('click', () => {
+//Event Listeners
+
+xSelect.addEventListener('click', () => {
    choice = 'x'
    console.log(choice)
    tryit()
+   xSelect.style.pointerEvents = 'none'
+   oSelect.style.pointerEvents = 'none'
 })
 
-yow.addEventListener('click', () => {
+oSelect.addEventListener('click', () => {
    choice = 'o'
    console.log(choice)
    tryit()
+   oSelect.style.pointerEvents = 'none'
+   xSelect.style.pointerEvents = 'none'
 })
 
-
+//FUnctions
 
 function tryit() {
    itemArr.forEach(element => {
@@ -37,30 +46,17 @@ function tryit() {
             choice = 'x'
          }
          element.style.pointerEvents = 'none'
+         let index = itemArr.indexOf(element)
+         let y = Math.floor(index / 3)
+         let x = index % 3
 
-       check()
+         boardState[y][x] = element.textContent
 
+         // check()
+
+         boardhistory.push(JSON.parse(JSON.stringify(boardState)))
+         console.log(boardhistory)
       })
-
-      
    })
-
 }
 
-function check() {
-   for (i = 0; i < boardState.length; i++) {
-      if (i === 0) {
-         for (b = 0, a=0; b < boardState[i].length, a< 3; b++, a++) {
-            boardState[i][b] = itemArr[a].textContent
-         }
-      } else if (i ===1){
-         for (b = 0, a=3; b < boardState[i].length, a< 6; b++, a++) {
-            boardState[i][b] = itemArr[a].textContent
-         }
-      } else if (i=== 2){
-         for (b = 0, a=6; b < boardState[i].length, a< 9; b++, a++) {
-            boardState[i][b] = itemArr[a].textContent
-         }
-      }
-   }
-}
