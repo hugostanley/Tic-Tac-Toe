@@ -5,70 +5,62 @@ const yow = document.querySelector('.ow')
 let choice
 
 let itemArr = [...items]
-console.log(itemArr)
 
 let boardState = [
-   ['1', '2', '3'],
-   ['2', '3', '4'],
-   ['2', '2', '2'],
+   ['', '', ''],
+   ['', '', ''],
+   ['', '', ''],
 ]
 
 yek.addEventListener('click', () => {
    choice = 'x'
    console.log(choice)
-   game2()
+   tryit()
 })
 
 yow.addEventListener('click', () => {
    choice = 'o'
    console.log(choice)
-   game2()
+   tryit()
 })
 
-// function game() {
-//    itemArr.forEach(element => {
-//       element.addEventListener('click', e => {
-//          element.textContent = choice
-//          element.style.pointerEvents = 'none'
-//          if (choice === 'x') {
-//             choice = 'o'
-//          } else {
-//             choice = 'x'
-//          }
-//       })
-//    })
-// }
 
-// function game2() {
-//    for (let i = 0; i < itemArr.length; i++) {
-//       for ( let x = 0; x < itemArr[i].length; i++) {
-//          itemArr[x] = choice
-//          itemArr[x].textContent = choice
-//       }
-//    }
-// }
 
-function game2() {
-   for (let i = 0; i < boardState.length; i++) {
+function tryit() {
+   itemArr.forEach(element => {
+      element.addEventListener('click', e => {
+         element.textContent = choice
 
-      let cell = boardState[i]
-      for (let x = 0; x < cell.length ;i++) {
-         // itemArr.forEach(element => {
-         //    element.addEventListener('click', e => {
-         //       element.textContent = choice
-         //       element.style.pointerEvents = 'none'
+         if (choice === 'x') {
+            choice = 'o'
+         } else {
+            choice = 'x'
+         }
+         element.style.pointerEvents = 'none'
 
-         //       if (choice === 'x') {
-         //          choice = 'o'
-         //       } else {
-         //          choice = 'x'
-         //       }
-         //       boardState[i][x] = choice
-         //       console.log(boardState)
-         //    })
-         // })
-        console.log(boardState[x])
+       check()
+
+      })
+
+      
+   })
+
+}
+
+function check() {
+   for (i = 0; i < boardState.length; i++) {
+      if (i === 0) {
+         for (b = 0, a=0; b < boardState[i].length, a< 3; b++, a++) {
+            boardState[i][b] = itemArr[a].textContent
+         }
+      } else if (i ===1){
+         for (b = 0, a=3; b < boardState[i].length, a< 6; b++, a++) {
+            boardState[i][b] = itemArr[a].textContent
+         }
+      } else if (i=== 2){
+         for (b = 0, a=6; b < boardState[i].length, a< 9; b++, a++) {
+            boardState[i][b] = itemArr[a].textContent
+         }
       }
    }
 }
-
