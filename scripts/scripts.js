@@ -37,26 +37,60 @@ oSelect.addEventListener('click', () => {
 
 function tryit() {
    itemArr.forEach(element => {
-      element.addEventListener('click', e => {
-         element.textContent = choice
+      element.addEventListener(
+         'click',
+         e => {
+            element.textContent = choice
 
-         if (choice === 'x') {
-            choice = 'o'
-         } else {
-            choice = 'x'
-         }
-         element.style.pointerEvents = 'none'
-         let index = itemArr.indexOf(element)
-         let y = Math.floor(index / 3)
-         let x = index % 3
+            if (choice === 'x') {
+               choice = 'o'
+            } else {
+               choice = 'x'
+            }
+            // element.style.pointerEvents = 'none'
+            let index = itemArr.indexOf(element)
+            let y = Math.floor(index / 3)
+            let x = index % 3
 
-         boardState[y][x] = element.textContent
+            boardState[y][x] = element.textContent
 
-         // check()
-
-         boardhistory.push(JSON.parse(JSON.stringify(boardState)))
-         console.log(boardhistory)
-      })
+            boardhistory.push(JSON.parse(JSON.stringify(boardState)))
+            winGame()
+         },
+         { once: true }
+        
+      ) // you can only click on a cell once
+    
    })
+   console.log(boardState)
+   
 }
 
+const winCond = [
+   // x axis
+   [0, 1, 2],
+   [3, 4, 5],
+   [6, 7, 8],
+   // y axis
+   [0, 3, 6],
+   [1, 4, 7],
+   [2, 5, 8],
+   // diagonal
+   [0, 4, 8],
+   [2, 4, 6],
+]
+
+function winGame() {
+   for (i = 0; i < winCond.length; i++) {
+      const item = winCond[i]
+      const a = itemArr[item[0]]
+      const b = itemArr[item[1]]
+      const c = itemArr[item[2]]
+     
+      if (a.textContent === '' && b.textContent === '' && c.textContent === ''){
+         return
+      } else if (a.textContent === b.textContent && b.textContent === c.textContent) {
+         console.log('winnerr')
+      } 
+   }
+}
