@@ -8,29 +8,32 @@
       <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet" />
       <title>Document</title>
       <link rel="stylesheet" href="./css/main.css" />
-      <script src="./scripts/scripts.js" defer></script>
+      <script src="./scripts/game.js" defer></script>
+      <script src="./scripts/home.js" defer></script>
    </head>
    <body>
       <main>
-         <dialog>
-            <span class="o" data-o-selection>o</span>
-            <span class="x" data-x-selection>x</span>
-         </dialog>
          <div class="interface-con">
             <div class="homepage">
                <h1>XO</h1>
-               <button class="play-btn">Play Now</button>
+               <button class="play-btn" data-play-btn>Play Now</button>
             </div>
-            <div class="container">
-               <div class="items one data-one"></div>
-               <div class="items two"></div>
-               <div class="items three"></div>
-               <div class="items four"></div>
-               <div class="items five"></div>
-               <div class="items six"></div>
-               <div class="items seven"></div>
-               <div class="items eight"></div>
-               <div class="items nine"></div>
+            <div class="game">
+               <dialog>
+                  <span class="o" data-o-selection>o</span>
+                  <span class="x" data-x-selection>x</span>
+               </dialog>
+               <div class="container">
+                  <div class="items one data-one"></div>
+                  <div class="items two"></div>
+                  <div class="items three"></div>
+                  <div class="items four"></div>
+                  <div class="items five"></div>
+                  <div class="items six"></div>
+                  <div class="items seven"></div>
+                  <div class="items eight"></div>
+                  <div class="items nine"></div>
+               </div>
             </div>
          </div>
       </main>
