@@ -8,20 +8,7 @@
   line-height: 1.3;
 }
 
-:root {
-  --primary-light: #3F72AF;
-  --primary-dark: #112D4E;
-  --secondary-light: #F9F7F7;
-  --primary-yellow: #F1C300;
-  --primary--white: #dfecf4
-  --primary--blue: #08DBD8;
-  --primary-pink: #E766E8;
-}
-
 main {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   min-height: 100vh;
   width: 100vw;
   background-image: url(/images/x-o.png);
@@ -31,24 +18,73 @@ main {
 }
 
 .interface-con {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 85vh;
-  width: 50%;
-  font-family: "Noto Sans";
-  font-weight: 700;
   background: linear-gradient(to right bottom, rgba(255, 255, 255, 0.303), rgba(255, 255, 255, 0));
-  border-radius: 1.2rem;
   backdrop-filter: blur(1rem);
   box-shadow: 12px 12px 16px 0 rgba(0, 0, 0, 0.25), -8px -8px 12px 0 rgba(25, 25, 25, 0.3);
 }
 
-.homepage {
+.play-btn {
+  background: linear-gradient(45deg, rgba(8, 219, 216, 0.7764705882), rgba(232, 102, 232, 0.8431372549));
+  box-shadow: 12px 12px 16px 0 rgba(0, 0, 0, 0.25), -8px -8px 12px 0 rgba(25, 25, 25, 0.3);
+}
+
+.center-flex {
   display: flex;
   justify-content: center;
-  flex-direction: column;
   align-items: center;
+}
+
+:root {
+  --primary--light: #3f72af;
+  --primary--dark: #112d4e;
+  --secondary--light: #f9f7f7;
+  --primary-yellow: #f1c300;
+  --primary--white: #dfecf4;
+  --primary--gray: #b8babb;
+  --primary--blue: #08dbd8;
+  --primary--pink: #e766e8;
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.fadeOut {
+  animation-name: fadeOut;
+  animation-duration: 500ms;
+  animation-timing-function: ease-in;
+  animation-fill-mode: forwards;
+}
+
+.fadeIn {
+  animation-name: fadeIn;
+  animation-duration: 500ms;
+  animation-timing-function: ease-in;
+  animation-fill-mode: forwards;
+}
+
+.interface-con {
+  min-height: 85vh;
+  width: 50%;
+  border-radius: 1.2rem;
+  font-family: "Noto Sans";
+  font-weight: 700;
+}
+
+.homepage {
+  flex-direction: column;
 }
 .homepage .play-btn {
   font-size: 1rem;
@@ -56,17 +92,58 @@ main {
   padding: 5%;
   border-style: none;
   border: none;
-  background: linear-gradient(45deg, rgba(8, 219, 216, 0.7764705882), rgba(232, 102, 232, 0.8431372549));
   border-radius: 1rem;
   transition: all 300ms ease;
-  box-shadow: 12px 12px 16px 0 rgba(0, 0, 0, 0.25), -8px -8px 12px 0 rgba(25, 25, 25, 0.3);
 }
 .homepage .play-btn:hover {
   font-size: 1.15rem;
   cursor: pointer;
 }
 
-.container {
+.player-selection {
+  display: none;
+  background-color: transparent;
+  border: none;
+}
+.player-selection .select-text {
+  color: white;
+  font-size: 1rem;
+}
+
+.x,
+.o {
+  font-size: 5rem;
+}
+.x:hover,
+.o:hover {
+  cursor: pointer;
+}
+
+.x {
+  color: var(--primary--gray);
+  transition: all 300ms ease-in;
+}
+.x:hover {
+  color: var(--primary--blue);
+  text-shadow: 0 0 5px rgba(8, 219, 216, 0.7), 0 0 20px rgba(8, 219, 216, 0.7), 0 0 60px rgba(8, 219, 216, 0.7);
+}
+
+.o {
+  color: var(--primary--gray);
+  transition: all 300ms ease-in;
+}
+.o:hover {
+  color: var(--primary--pink);
+  text-shadow: 0 0 5px rgba(231, 102, 232, 0.7), 0 0 20px rgba(231, 102, 232, 0.7), 0 0 60px rgba(231, 102, 232, 0.7);
+}
+
+.game-section {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.board-container {
   display: none;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
@@ -76,9 +153,6 @@ main {
 }
 
 .items {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   min-height: 9vw;
   max-height: 9vw;
   height: 9vw;
@@ -128,27 +202,6 @@ main {
 .nine {
   border-right: none;
   border-bottom: none;
-}
-
-.x, .o {
-  font-size: 2rem;
-}
-.x:hover, .o:hover {
-  cursor: pointer;
-}
-
-dialog {
-  background-color: transparent;
-  border: none;
-}
-dialog span {
-  color: black;
-}
-
-.game {
-  display: flex;
-  justify-content: center;
-  flex-direction: row;
 }
 
 /*# sourceMappingURL=main.css.map */

@@ -6,35 +6,39 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet" />
       <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet" />
-      <title>Document</title>
+      <title>Tic Tac Toe</title>
       <link rel="stylesheet" href="./css/main.css" />
       <script src="./scripts/game.js" defer></script>
       <script src="./scripts/home.js" defer></script>
    </head>
    <body>
-      <main>
-         <div class="interface-con">
-            <div class="homepage">
-               <h1>XO</h1>
+      <main class="center-flex">
+         <div class="interface-con center-flex">
+            <section class="homepage center-flex">
+               <h1 class="logo">XO</h1>
                <button class="play-btn" data-play-btn>Play Now</button>
-            </div>
-            <div class="game">
-               <dialog>
-                  <span class="o" data-o-selection>o</span>
-                  <span class="x" data-x-selection>x</span>
-               </dialog>
-               <div class="container">
-                  <div class="items one data-one"></div>
-                  <div class="items two"></div>
-                  <div class="items three"></div>
-                  <div class="items four"></div>
-                  <div class="items five"></div>
-                  <div class="items six"></div>
-                  <div class="items seven"></div>
-                  <div class="items eight"></div>
-                  <div class="items nine"></div>
+            </section>
+            <section class="game-section center-flex">
+               <div class="player-selection">
+                  <span class="select-text">Pick your side</span>
+                  <div data-selection>
+                     <span class="o" data-o-selection>o</span>
+                     <span class="x" data-x-selection>x</span>
+                  </div>
                </div>
-            </div>
+               <div class="board-container">
+                  <div class="items one center-flex"></div>
+                  <div class="items two center-flex"></div>
+                  <div class="items three center-flex"></div>
+                  <div class="items four center-flex"></div>
+                  <div class="items five center-flex"></div>
+                  <div class="items six center-flex"></div>
+                  <div class="items seven center-flex"></div>
+                  <div class="items eight center-flex"></div>
+                  <div class="items nine center-flex"></div>
+               </div>
+               <div class="winner-popUp"></div>
+            </section>
          </div>
       </main>
    </body>

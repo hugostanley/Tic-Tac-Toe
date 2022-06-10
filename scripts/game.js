@@ -5,6 +5,7 @@ const oSelect = document.querySelector('[data-o-selection]')
 
 // Reusable Variables
 let cellArr = [...cells]
+
 let choice // Either X or O
 let boardState = [
    ['', '', ''],
@@ -29,18 +30,16 @@ const winCond = [
 // Event Listeners
 xSelect.addEventListener('click', () => {
    choice = 'x'
+
    console.log(choice)
    tryit()
-   xSelect.style.pointerEvents = 'none'
-   oSelect.style.pointerEvents = 'none'
 })
 
 oSelect.addEventListener('click', () => {
    choice = 'o'
+
    console.log(choice)
    tryit()
-   oSelect.style.pointerEvents = 'none'
-   xSelect.style.pointerEvents = 'none'
 })
 
 //FUNCTIONS

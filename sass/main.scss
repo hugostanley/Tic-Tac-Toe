@@ -3,27 +3,4 @@
 @use './components/' as* ;
 @use './layout/' as *;
 
-.x, .o {
-    font-size: 2rem;
 
-
-    &:hover{
-        cursor: pointer;
-    }
-}
-
-
-dialog {
-    background-color: transparent;
-    border: none;
-
-    span{
-        color: black;
-    }
-}
-
-.game {
-    display: flex;
-   justify-content: center;
-   flex-direction: row;
-}
