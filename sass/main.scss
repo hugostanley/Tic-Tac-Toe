@@ -3,4 +3,12 @@
 @use './components/' as* ;
 @use './layout/' as *;
 
-
+.buttons {
+    margin-top: 1%;
+    span{
+        font-size: 2rem;
+        &:hover{
+            cursor: pointer;
+        }
+    }
+}

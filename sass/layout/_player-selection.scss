@@ -20,7 +20,7 @@
 .x {
    color: var(--primary--gray);
    transition: all 300ms ease-in;
-   
+
    &:hover {
       color: var(--primary--blue);
       text-shadow: 0 0 5px rgba(8, 219, 216, 0.7), 0 0 20px rgba(8, 219, 216, 0.7), 0 0 60px rgba(8, 219, 216, 0.7);
@@ -30,7 +30,7 @@
 .o {
    color: var(--primary--gray);
    transition: all 300ms ease-in;
-   
+
    &:hover {
       color: var(--primary--pink);
       text-shadow: 0 0 5px rgba(231, 102, 232, 0.7), 0 0 20px rgba(231, 102, 232, 0.7), 0 0 60px rgba(231, 102, 232, 0.7);

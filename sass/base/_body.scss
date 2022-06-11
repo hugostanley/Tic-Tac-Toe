@@ -1,7 +1,7 @@
 main {
    min-height: 100vh;
    width: 100vw;
-
+   flex-direction: column;
    background-image: url(/images/x-o.png);
    background-position: center;
    background-size: cover;
@@ -9,8 +9,9 @@ main {
 }
 
 .interface-con {
-   background: linear-gradient(to right bottom, rgba(255, 255, 255, 0.116), rgba(255, 255, 255, 0));
-   backdrop-filter: blur(1rem);
+   background: linear-gradient(to right bottom, rgba(0, 0, 0, 0.574), rgba(0, 0, 0, 0.45));
+   backdrop-filter: blur(2rem);
+  
    box-shadow: 12px 12px 16px 0 rgba(0, 0, 0, 0.25), -8px -8px 12px 0 rgba(25, 25, 25, 0.3);
 }
 
