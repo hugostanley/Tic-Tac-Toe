@@ -21,7 +21,8 @@
    min-width: 9vw;
    max-width: 9vw;
 
-   background: linear-gradient(to right bottom, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.3));
+   // background: linear-gradient(to right bottom, rgba(44, 43, 43, 0.801), rgba(78, 76, 76, 0.514));
+   background-color: var(--primary--dark);
    border-radius: 20%;
    box-shadow: 12px 12px 16px 0 rgba(0, 0, 0, 0.25), -8px -8px 12px 0 rgba(255, 255, 255, 0.3);
 
@@ -30,11 +31,6 @@
       cursor: pointer;
    }
 }
-
-
-
-
-
 
 .one {
    border-top: none;
@@ -70,4 +66,14 @@
 .nine {
    border-right: none;
    border-bottom: none;
+}
+
+.x-color {
+   color: var(--primary--blue);
+   text-shadow: 0 0 5px rgba(8, 219, 216, 0.7), 0 0 20px rgba(8, 219, 216, 0.7), 0 0 60px rgba(8, 219, 216, 0.7);
+}
+
+.o-color {
+   color: var(--primary--pink);
+   text-shadow: 0 0 5px rgba(231, 102, 232, 0.7), 0 0 20px rgba(231, 102, 232, 0.7), 0 0 60px rgba(231, 102, 232, 0.7);
 }

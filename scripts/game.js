@@ -41,7 +41,7 @@ oSelect.addEventListener('click', () => {
    console.log(choice)
    tryit()
 })
-
+let click = 0;
 //FUNCTIONS
 function tryit() {
    cellArr.forEach(element => {
@@ -49,11 +49,14 @@ function tryit() {
          'click',
          e => {
             element.textContent = choice
-
+           
+            click++
             if (choice === 'x') {
                choice = 'o'
+               element.classList.add('x-color')
             } else {
                choice = 'x'
+               element.classList.add('o-color')
             }
             // element.style.pointerEvents = 'none'
             let index = cellArr.indexOf(element)
@@ -63,7 +66,10 @@ function tryit() {
             boardState[y][x] = element.textContent
 
             boardhistory.push(JSON.parse(JSON.stringify(boardState)))
-            validateWin()
+            if(click >= 5){
+               validateWin()
+            }
+           
          },
          { once: true }
       ) // you can only click on a cell once
