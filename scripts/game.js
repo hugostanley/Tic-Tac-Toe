@@ -123,19 +123,13 @@ function showButtons() {
    }
 }
 
-undoClick = 0
 undo.addEventListener('click', () => {
-   if (boardState === undefined) {
-      return
-   } else if (boardState !== undefined) {
-      undoClick++
-      boardState = boardhistory[boardhistory.length - 1 - undoClick]
-      changeState()
-   }
+   boardState = boardhistory[boardhistory.length - 1 - 1]
+   changeState()
 })
 
 redo.addEventListener('click', () => {
-   boardState = boardhistory[(boardhistory.indexOf(boardState)+ 1)]
+   boardState = boardhistory[boardhistory.indexOf(boardState) + 1]
    changeState()
 })
 

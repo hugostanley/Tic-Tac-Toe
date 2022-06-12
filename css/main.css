@@ -211,6 +211,7 @@ main {
 .btns {
   display: none;
   pointer-events: none;
+  user-select: none;
 }
 
 /*# sourceMappingURL=main.css.map */
