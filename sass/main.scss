@@ -1,14 +1,17 @@
-@use './base/' as*;
+@use './base/' as *;
 @use './abstracts/' as *;
-@use './components/' as* ;
+@use './components/' as *;
 @use './layout/' as *;
 
 .buttons {
-    margin-top: 1%;
-    span{
-        font-size: 2rem;
-        &:hover{
-            cursor: pointer;
-        }
-    }
+   margin-top: 1%;
+   span {
+      font-size: 2rem;
+      &:hover {
+         cursor: pointer;
+      }
+   }
+}
+.redo,.undo, .reset{
+    display: none;
 }

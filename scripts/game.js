@@ -3,10 +3,12 @@ let cells = document.querySelectorAll('.items')
 const xSelect = document.querySelector('[data-x-selection]')
 const oSelect = document.querySelector('[data-o-selection]')
 
+
 // Reusable Variables
 let cellArr = [...cells]
+let choice
+let clicks = 0
 
-let choice // Either X or O
 let boardState = [
    ['', '', ''],
    ['', '', ''],
@@ -30,51 +32,55 @@ const winCond = [
 // Event Listeners
 xSelect.addEventListener('click', () => {
    choice = 'x'
-
    console.log(choice)
-   tryit()
+   startGame()
 })
 
 oSelect.addEventListener('click', () => {
    choice = 'o'
-
    console.log(choice)
-   tryit()
+   startGame()
 })
-let click = 0;
+
 //FUNCTIONS
-function tryit() {
+function startGame() {
    cellArr.forEach(element => {
       element.addEventListener(
          'click',
          e => {
+            clicks++
             element.textContent = choice
-           
-            click++
-            if (choice === 'x') {
-               choice = 'o'
-               element.classList.add('x-color')
-            } else {
-               choice = 'x'
-               element.classList.add('o-color')
-            }
-            // element.style.pointerEvents = 'none'
-            let index = cellArr.indexOf(element)
-            let y = Math.floor(index / 3)
-            let x = index % 3
-
-            boardState[y][x] = element.textContent
-
-            boardhistory.push(JSON.parse(JSON.stringify(boardState)))
-            if(click >= 5){
-               validateWin()
-            }
-           
+            alterSelection(element)
+            updateState(element)
+            updateHistory()
+            validateWin()
+            checkDraw()
+         
          },
          { once: true }
-      ) // you can only click on a cell once
+      )
    })
-   console.log(boardState)
+}
+
+function alterSelection(a) {
+   if (choice === 'x') {
+      choice = 'o'
+      a.classList.add('x-color')
+   } else {
+      choice = 'x'
+      a.classList.add('o-color')
+   }
+}
+
+function updateState(a) {
+   let index = cellArr.indexOf(a)
+   let y = Math.floor(index / 3)
+   let x = index % 3
+   boardState[y][x] = a.textContent
+}
+
+function updateHistory() {
+   boardhistory.push(JSON.parse(JSON.stringify(boardState)))
 }
 
 function validateWin() {
@@ -88,6 +94,14 @@ function validateWin() {
          return
       } else if (a.textContent === b.textContent && b.textContent === c.textContent) {
          console.log('winnerr')
+         
       }
    }
 }
+
+function checkDraw() {
+   if (validateWin() === false && clicks === 9) {
+      console.log('draw')
+   }
+}
+
