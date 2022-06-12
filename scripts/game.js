@@ -3,12 +3,16 @@ let cells = document.querySelectorAll('.items')
 const xSelect = document.querySelector('[data-x-selection]')
 const oSelect = document.querySelector('[data-o-selection]')
 
+const btns = document.querySelectorAll('.btns')
+const redo = document.querySelector('.redo')
+const reset = document.querySelector('.reset')
+const undo = document.querySelector('.undo')
 
 // Reusable Variables
 let cellArr = [...cells]
 let choice
 let clicks = 0
-
+let gameState = false
 let boardState = [
    ['', '', ''],
    ['', '', ''],
@@ -55,7 +59,6 @@ function startGame() {
             updateHistory()
             validateWin()
             checkDraw()
-         
          },
          { once: true }
       )
@@ -77,6 +80,7 @@ function updateState(a) {
    let y = Math.floor(index / 3)
    let x = index % 3
    boardState[y][x] = a.textContent
+   return boardState
 }
 
 function updateHistory() {
@@ -94,14 +98,52 @@ function validateWin() {
          return
       } else if (a.textContent === b.textContent && b.textContent === c.textContent) {
          console.log('winnerr')
-         
+
+         gameState = 'win'
+         showButtons()
       }
    }
 }
 
 function checkDraw() {
-   if (validateWin() === false && clicks === 9) {
+   if (gameState === false && clicks === 9) {
       console.log('draw')
+      gameState = 'draw'
+
+      showButtons()
    }
 }
 
+function showButtons() {
+   if (gameState === 'win' || gameState === 'draw') {
+      btns.forEach(element => {
+         element.style.pointerEvents = 'all'
+         element.style.display = 'block'
+      })
+   }
+}
+
+undoClick = 0
+undo.addEventListener('click', () => {
+   if (boardState === undefined) {
+      return
+   } else if (boardState !== undefined) {
+      undoClick++
+      boardState = boardhistory[boardhistory.length - 1 - undoClick]
+      changeState()
+   }
+})
+
+redo.addEventListener('click', () => {
+   boardState = boardhistory[(boardhistory.indexOf(boardState)+ 1)]
+   changeState()
+})
+
+function changeState() {
+   cellArr.forEach(element => {
+      let index = cellArr.indexOf(element)
+      let y = Math.floor(index / 3)
+      let x = index % 3
+      element.textContent = boardState[y][x]
+   })
+}

@@ -12,6 +12,8 @@
       }
    }
 }
-.redo,.undo, .reset{
+
+.btns {
     display: none;
+    pointer-events: none;
 }
