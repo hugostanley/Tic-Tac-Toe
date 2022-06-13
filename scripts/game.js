@@ -59,6 +59,7 @@ function startGame() {
             updateHistory()
             validateWin()
             checkDraw()
+         
          },
          { once: true }
       )
@@ -87,7 +88,7 @@ function updateHistory() {
    boardhistory.push(JSON.parse(JSON.stringify(boardState)))
 }
 
-function validateWin() {
+function validateWin(element) {
    for (i = 0; i < winCond.length; i++) {
       const item = winCond[i]
       const a = cellArr[item[0]]
@@ -101,6 +102,10 @@ function validateWin() {
 
          gameState = 'win'
          showButtons()
+         cellArr.forEach(element => {
+            element.style.pointerEvents = 'none'
+         })
+         
       }
    }
 }
@@ -124,8 +129,7 @@ function showButtons() {
 }
 
 undo.addEventListener('click', () => {
-   boardState = boardhistory[boardhistory.length - 1 - 1]
-   changeState()
+ 
 })
 
 redo.addEventListener('click', () => {
