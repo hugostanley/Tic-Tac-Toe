@@ -9,8 +9,8 @@ const undo = document.querySelector('.undo')
 
 // Reusable Variables
 let cellArr = [...cells]
-let choice
-let clicks = 0
+let choice = ''
+let moves = 0
 let gameState = false
 let boardState = [
    ['', '', ''],
@@ -65,22 +65,14 @@ function startGame() {
       element.addEventListener(
          'click',
          e => {
-            clicks++
+            moves++
             updateBoardState(element)
             displayCell(element)
             alterSelection(element)
             updateHistory()
-            validateWin()
-            checkDraw()
-
-            reset.addEventListener('click', () => {
-               boardState = [
-                  ['', '', ''],
-                  ['', '', ''],
-                  ['', '', ''],
-               ]
-               return boardState
-            })
+            if (moves >= 5) {
+               validateGameState()
+            }
          },
          { once: true }
       )
@@ -116,7 +108,7 @@ function updateHistory() {
    boardhistory.push(JSON.parse(JSON.stringify(boardState)))
 }
 
-function validateWin(element) {
+function validateGameState(element) {
    for (i = 0; i < winCond.length; i++) {
       const item = winCond[i]
       const a = cellArr[item[0]]
@@ -129,16 +121,11 @@ function validateWin(element) {
          gameState = 'win'
          showButtons()
          stopGame()
+      } else if (gameState !== 'win' && moves === 9) {
+         gameState = 'draw'
+         showButtons()
+         stopGame()
       }
-   }
-}
-
-function checkDraw() {
-   if (gameState === false && clicks === 9) {
-      gameState = 'draw'
-      showButtons()
-      stopGame()
-      console.log('draw')
    }
 }
 
@@ -170,4 +157,15 @@ function reOrder(arr, from, to) {
    arr.splice(to, 0, arr.splice(from, 1)[0])
 }
 
-
+reset.addEventListener('click', () => {
+   boardState = [
+      ['', '', ''],
+      ['', '', ''],
+      ['', '', ''],
+   ]
+   boardhistory = []
+   choice = ''
+   changeState()
+   startGame()
+   return boardState
+})
