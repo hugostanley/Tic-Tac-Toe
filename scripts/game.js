@@ -2,7 +2,6 @@
 let cells = document.querySelectorAll('.items')
 const xSelect = document.querySelector('[data-x-selection]')
 const oSelect = document.querySelector('[data-o-selection]')
-
 const btns = document.querySelectorAll('.btns')
 const redo = document.querySelector('.redo')
 const reset = document.querySelector('.reset')
@@ -170,3 +169,5 @@ function stopGame() {
 function reOrder(arr, from, to) {
    arr.splice(to, 0, arr.splice(from, 1)[0])
 }
+
+
