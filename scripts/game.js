@@ -10,8 +10,7 @@ const undo = document.querySelector('.undo')
 // Reusable Variables
 let cellArr = [...cells]
 let choice = ''
-let moves = 0
-let gameState = false
+let gameState = 'unstarted'
 let boardState = [
    ['', '', ''],
    ['', '', ''],
@@ -65,12 +64,11 @@ function startGame() {
       element.addEventListener(
          'click',
          e => {
-            moves++
             updateBoardState(element)
             displayCell(element)
             alterSelection(element)
             updateHistory()
-            if (moves >= 5) {
+            if (boardhistory.length > 4) {
                validateGameState()
             }
          },
@@ -121,10 +119,9 @@ function validateGameState(element) {
          gameState = 'win'
          showButtons()
          stopGame()
-      } else if (gameState !== 'win' && moves === 9) {
+      } else if (gameState !== 'win' && boardhistory.length === 9) {
          gameState = 'draw'
-         showButtons()
-         stopGame()
+         console.log('draw')
       }
    }
 }
