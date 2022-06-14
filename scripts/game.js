@@ -10,7 +10,9 @@ const undo = document.querySelector('.undo')
 // Reusable Variables
 let cellArr = [...cells]
 let choice = ''
-let gameState = 'unstarted'
+
+let gameWon = false
+let gameDraw = false
 let boardState = [
    ['', '', ''],
    ['', '', ''],
@@ -106,33 +108,37 @@ function updateHistory() {
    boardhistory.push(JSON.parse(JSON.stringify(boardState)))
 }
 
-function validateGameState(element) {
+function validateGameState() {
+   let newBoard = boardState.flat()
    for (i = 0; i < winCond.length; i++) {
       const item = winCond[i]
-      const a = cellArr[item[0]]
-      const b = cellArr[item[1]]
-      const c = cellArr[item[2]]
+      const a = newBoard[item[0]]
+      const b = newBoard[item[1]]
+      const c = newBoard[item[2]]
 
-      if (a.textContent === '' && b.textContent === '' && c.textContent === '') {
-         return
-      } else if (a.textContent === b.textContent && b.textContent === c.textContent) {
-         gameState = 'win'
+      if (a === '' && b === '' && c === '') {
+         continue
+      }
+
+      if (a === b && b === c) {
+         gameWon = true
          showButtons()
          stopGame()
-      } else if (gameState !== 'win' && boardhistory.length === 9) {
-         gameState = 'draw'
-         console.log('draw')
       }
+   }
+
+   if (!newBoard.includes('')) {
+      gameDraw = true
+      showButtons()
+      stopGame()
    }
 }
 
 function showButtons() {
-   if (gameState === 'win' || gameState === 'draw') {
-      btns.forEach(element => {
-         element.style.pointerEvents = 'all'
-         element.style.display = 'block'
-      })
-   }
+   btns.forEach(element => {
+      element.style.pointerEvents = 'all'
+      element.style.display = 'block'
+   })
 }
 
 function changeState() {
