@@ -13,8 +13,9 @@
    }
 }
 
-.btns {
+.redo, .undo {
     display: none;
     pointer-events: none;
     user-select: none;
 }
+

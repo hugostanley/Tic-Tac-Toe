@@ -19,6 +19,7 @@ let boardState = [
    ['', '', ''],
 ]
 let boardhistory = []
+let historyClone = boardhistory
 const winCond = [
    // x axis
    [0, 1, 2],
@@ -34,6 +35,7 @@ const winCond = [
 ]
 
 // Event Listeners
+
 xSelect.addEventListener('click', () => {
    choice = 'x'
    console.log(choice)
@@ -46,6 +48,18 @@ oSelect.addEventListener('click', () => {
    startGame()
 })
 
+undo.addEventListener('click', () => {
+   reOrder(historyClone, historyClone.length - 1, 0)
+   boardState = historyClone[historyClone.length - 1]
+   changeState()
+})
+
+redo.addEventListener('click', () => {
+   reOrder(historyClone, 0, historyClone.length - 1)
+   boardState = historyClone[historyClone.length - 1]
+   changeState()
+})
+
 //FUNCTIONS
 function startGame() {
    cellArr.forEach(element => {
@@ -53,13 +67,21 @@ function startGame() {
          'click',
          e => {
             clicks++
-            element.textContent = choice
+            updateBoardState(element)
+            displayCell(element)
             alterSelection(element)
-            updateState(element)
             updateHistory()
             validateWin()
             checkDraw()
-         
+
+            reset.addEventListener('click', () => {
+               boardState = [
+                  ['', '', ''],
+                  ['', '', ''],
+                  ['', '', ''],
+               ]
+               return boardState
+            })
          },
          { once: true }
       )
@@ -76,12 +98,19 @@ function alterSelection(a) {
    }
 }
 
-function updateState(a) {
+function updateBoardState(a) {
    let index = cellArr.indexOf(a)
    let y = Math.floor(index / 3)
    let x = index % 3
-   boardState[y][x] = a.textContent
+   boardState[y][x] = choice
    return boardState
+}
+
+function displayCell(a) {
+   let index = cellArr.indexOf(a)
+   let y = Math.floor(index / 3)
+   let x = index % 3
+   a.textContent = boardState[y][x]
 }
 
 function updateHistory() {
@@ -98,24 +127,19 @@ function validateWin(element) {
       if (a.textContent === '' && b.textContent === '' && c.textContent === '') {
          return
       } else if (a.textContent === b.textContent && b.textContent === c.textContent) {
-         console.log('winnerr')
-
          gameState = 'win'
          showButtons()
-         cellArr.forEach(element => {
-            element.style.pointerEvents = 'none'
-         })
-         
+         stopGame()
       }
    }
 }
 
 function checkDraw() {
    if (gameState === false && clicks === 9) {
-      console.log('draw')
       gameState = 'draw'
-
       showButtons()
+      stopGame()
+      console.log('draw')
    }
 }
 
@@ -128,15 +152,6 @@ function showButtons() {
    }
 }
 
-undo.addEventListener('click', () => {
- 
-})
-
-redo.addEventListener('click', () => {
-   boardState = boardhistory[boardhistory.indexOf(boardState) + 1]
-   changeState()
-})
-
 function changeState() {
    cellArr.forEach(element => {
       let index = cellArr.indexOf(element)
@@ -144,4 +159,14 @@ function changeState() {
       let x = index % 3
       element.textContent = boardState[y][x]
    })
+}
+
+function stopGame() {
+   cellArr.forEach(element => {
+      element.style.pointerEvents = 'none'
+   })
+}
+
+function reOrder(arr, from, to) {
+   arr.splice(to, 0, arr.splice(from, 1)[0])
 }
