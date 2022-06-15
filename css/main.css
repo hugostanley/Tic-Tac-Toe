@@ -214,4 +214,8 @@ main {
   user-select: none;
 }
 
+.reset {
+  visibility: hidden;
+}
+
 /*# sourceMappingURL=main.css.map */

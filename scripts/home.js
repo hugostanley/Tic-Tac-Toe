@@ -7,7 +7,7 @@ const playerSelect = document.querySelector('.player-selection')
 
 const textSelect = document.querySelector('.select-text')
 
-
+const resetBtn = document.querySelector('.reset')
 playBtn.addEventListener('click', () => {
    playBtn.classList.add('fadeOut')
    logo.classList.add('fadeOut')
@@ -33,6 +33,7 @@ xSelect.addEventListener('click', () => {
 
    xSelect.addEventListener('animationend', () => {
       playerSelect.style.display = 'none'
+      reset.style.visibility = 'visible'
       displayGrid()
    })
 })
@@ -44,11 +45,14 @@ oSelect.addEventListener('click', () => {
 
    oSelect.addEventListener('animationend', () => {
       playerSelect.style.display = 'none'
+      reset.style.visibility = 'visible'
       boardCon.style.display = 'grid'
    })
 })
 
 function displayGrid() {
    boardCon.classList.add('fadeIn')
+
    boardCon.style.display = 'grid'
+   
 }
