@@ -19,7 +19,7 @@ let boardState = [
    ['', '', ''],
 ]
 let boardhistory = []
-let historyClone = boardhistory
+
 const winCond = [
    // x axis
    [0, 1, 2],
@@ -49,12 +49,19 @@ oSelect.addEventListener('click', () => {
 })
 
 undo.addEventListener('click', () => {
+   if(historyClone[historyClone.length - 1]=== boardhistory[0]){
+      return
+   }
    reOrder(historyClone, historyClone.length - 1, 0)
    boardState = historyClone[historyClone.length - 1]
+
    changeState()
 })
 
 redo.addEventListener('click', () => {
+   if(historyClone[historyClone.length - 1]=== boardhistory[boardhistory.length-1]){
+      return
+   }
    reOrder(historyClone, 0, historyClone.length - 1)
    boardState = historyClone[historyClone.length - 1]
    changeState()
@@ -106,6 +113,7 @@ function displayCell(a) {
 
 function updateHistory() {
    boardhistory.push(JSON.parse(JSON.stringify(boardState)))
+   historyClone = [...boardhistory]
 }
 
 function validateGameState() {
