@@ -20,7 +20,19 @@ let boardState = [
    ['', '', ''],
    ['', '', ''],
 ]
-
+let indexMove = []
+let historyPosition = [
+   'Top-left',
+   'Top-middle',
+   'Top-right',
+   'Center-left',
+   'Center-middle',
+   'Center-right',
+   'Bottom-left',
+   'Bottom-middle',
+   'Bottom-right',
+]
+let historyList =[]
 let boardhistory = []
 
 const winCond = [
@@ -99,11 +111,15 @@ function startGame() {
    boardhistory = []
    changeState()
    hideBtns()
-   
-   cellArr.forEach(element => {
+
+   cellArr.forEach((element, index) => {
       element.style.pointerEvents = 'all'
       element.removeEventListener('click', handleClick)
       element.addEventListener('click', handleClick, { once: true })
+      element.addEventListener('click', () => {
+         indexMove.push(index)
+
+      },{ once: true })
    })
 }
 
@@ -173,10 +189,10 @@ function validateGameState(element) {
          gameWon = true
          showButtons()
          stopGame()
+         createList()
          // a.classList.add('win')
          // b.classList.add('win')
          // c.classList.add('win')
-       
       }
    }
 
@@ -184,6 +200,7 @@ function validateGameState(element) {
       gameDraw = true
       showButtons()
       stopGame()
+      createList()
    }
    // highlight()
 }
@@ -210,12 +227,10 @@ function restart() {
    boardCons.classList.add('flip')
    interf.classList.add('flip')
    startGame()
-   boardCons.addEventListener('animationend', ()=> {
+   boardCons.addEventListener('animationend', () => {
       boardCons.classList.remove('flip')
       interf.classList.remove('flip')
-      
    })
-   
 }
 
 function hideBtns() {
@@ -237,5 +252,13 @@ function highlight() {
          b.style.color = 'black'
          c.style.color = 'black'
       }
+   }
+}
+
+function createList(){
+   for(i=0; i<indexMove.length; i++){
+      let asd = indexMove[i]
+      historyList.push(historyPosition[asd])
+      alert(historyList)
    }
 }
