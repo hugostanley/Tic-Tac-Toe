@@ -10,7 +10,7 @@ const undo = document.querySelector('.undo')
 // Reusable Variables
 let cellArr = [...cells]
 let firstChoice = ''
-let choice = ''
+let currentPlayer = ''
 let gameWon = false
 let gameDraw = false
 let boardState = [
@@ -37,23 +37,30 @@ const winCond = [
 
 changeState()
 
+function Player(character, color) {
+   this.character = character
+   this.score = 0
+   this.color = color
+}
+
+const xPlayer = new Player('x', 'var(--primary--blue)')
+const oPlayer = new Player('o', 'var(--primary--pink)')
 // Event Listeners
 
 xSelect.addEventListener('click', startX)
+oSelect.addEventListener('click', startO)
 
 function startX() {
-   choice = 'x'
-   firstChoice = 'x'
-   console.log(choice)
+   currentPlayer = xPlayer.character
+   firstChoice = xPlayer.character
+   console.log(currentPlayer)
    startGame()
 }
 
-oSelect.addEventListener('click', startO)
-
 function startO() {
-   choice = 'o'
-   firstChoice = 'o'
-   console.log(choice)
+   currentPlayer = oPlayer.character
+   firstChoice = oPlayer.character
+   console.log(currentPlayer)
    startGame()
 }
 
@@ -75,36 +82,45 @@ redo.addEventListener('click', () => {
    changeState()
 })
 
-reset.addEventListener('click', restart)
+reset.addEventListener('click', startGame)
+
 //FUNCTIONS
 function startGame() {
    cellArr.forEach(element => {
-      element.addEventListener(
-         'click',
-         e => {
+      
+      gameWon = false
+      gameDraw = false
+      boardState = [
+         ['', '', ''],
+         ['', '', ''],
+         ['', '', ''],
+      ]
 
-            updateBoardState(element)
-            changeState()
-            alterSelection(element)
-            updateHistory()
-            if (boardhistory.length > 4) {
-               validateGameState()
-            }
-
-            element.style.pointerEvents = 'none'
-         }
-         // { once: true }
-      )
+      boardhistory = []
+      changeState()
+      element.style.pointerEvents = 'all'
+      element.removeEventListener('click', handleClick)
+      element.addEventListener('click', handleClick, { once: true })
    })
 }
 
+function handleClick(e) {
+   let element = e.target
+   alterSelection(element)
+   updateBoardState(element)
+   displayCell(element)
+   updateHistory()
+   if (boardhistory.length > 4) {
+      validateGameState()
+   }
+}
 function alterSelection(a) {
-   if (choice === 'x') {
-      choice = 'o'
-      a.classList.add('x-color')
+   if (currentPlayer === 'x') {
+      currentPlayer = oPlayer.character
+      a.style.color = xPlayer.color
    } else {
-      choice = 'x'
-      a.classList.add('o-color')
+      currentPlayer = xPlayer.character
+      a.style.color = oPlayer.color
    }
 }
 
@@ -113,16 +129,25 @@ function updateBoardState(a) {
       let index = cellArr.indexOf(a)
       let y = Math.floor(index / 3)
       let x = index % 3
-      boardState[y][x] = choice
+      boardState[y][x] = currentPlayer
    }
 }
 
-// function displayCell(a) {
-//    let index = cellArr.indexOf(a)
-//    let y = Math.floor(index / 3)
-//    let x = index % 3
-//    a.textContent = boardState[y][x]
-// }
+function changeState() {
+   cellArr.forEach(element => {
+      let index = cellArr.indexOf(element)
+      let y = Math.floor(index / 3)
+      let x = index % 3
+      element.textContent = boardState[y][x]
+   })
+}
+
+function displayCell(a) {
+   let index = cellArr.indexOf(a)
+   let y = Math.floor(index / 3)
+   let x = index % 3
+   a.textContent = boardState[y][x]
+}
 
 function updateHistory() {
    boardhistory.push(JSON.parse(JSON.stringify(boardState)))
@@ -162,15 +187,6 @@ function showButtons() {
    })
 }
 
-function changeState() {
-   cellArr.forEach(element => {
-      let index = cellArr.indexOf(element)
-      let y = Math.floor(index / 3)
-      let x = index % 3
-      element.textContent = boardState[y][x]
-   })
-}
-
 function stopGame() {
    cellArr.forEach(element => {
       element.style.pointerEvents = 'none'
@@ -182,7 +198,7 @@ function reOrder(arr, from, to) {
 }
 
 function restart() {
-   cellArr.forEach(element => element.style.pointerEvents = 'all')
+   currentPlayer = firstChoice
    gameWon = false
    gameDraw = false
    boardState = [
@@ -191,8 +207,5 @@ function restart() {
       ['', '', ''],
    ]
    boardhistory = []
-   choice = firstChoice
    changeState()
-
-  
 }
