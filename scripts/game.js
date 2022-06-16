@@ -7,6 +7,7 @@ const btns = document.querySelectorAll('.btns')
 const redo = document.querySelector('.redo')
 const reset = document.querySelector('.reset')
 const undo = document.querySelector('.undo')
+const interf = document.querySelector('.interface-con')
 
 // Reusable Variables
 let cellArr = [...cells]
@@ -207,9 +208,11 @@ function reOrder(arr, from, to) {
 function restart() {
    currentPlayer = firstChoice
    boardCons.classList.add('flip')
+   interf.classList.add('flip')
    startGame()
    boardCons.addEventListener('animationend', ()=> {
       boardCons.classList.remove('flip')
+      interf.classList.remove('flip')
       
    })
    

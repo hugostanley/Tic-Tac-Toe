@@ -111,8 +111,8 @@ main {
   }
 }
 .interface-con {
-  min-height: 35vw;
-  width: 35vw;
+  min-height: 30vw;
+  width: 30vw;
   border-radius: 1.2rem;
   font-family: "Noto Sans";
   font-weight: 700;
@@ -123,7 +123,7 @@ main {
 }
 .homepage .play-btn {
   font-size: 1rem;
-  width: 30vw;
+  width: 20vw;
   padding: 5%;
   border-style: none;
   border: none;
@@ -198,8 +198,8 @@ main {
   padding: 0.2rem;
   background: linear-gradient(70deg, var(--primary--blue), var(--primary--pink));
   border-radius: 5%;
-  height: 35vw;
-  width: 35vw;
+  height: 30vw;
+  width: 30vw;
 }
 
 .items {
