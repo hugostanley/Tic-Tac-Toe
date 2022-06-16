@@ -9,6 +9,7 @@ const undo = document.querySelector('.undo')
 
 // Reusable Variables
 let cellArr = [...cells]
+let firstChoice = ''
 let choice = ''
 let gameWon = false
 let gameDraw = false
@@ -34,12 +35,20 @@ const winCond = [
    [2, 4, 6],
 ]
 
+cellArr.forEach(element => {
+   let index = cellArr.indexOf(element)
+   let y = Math.floor(index / 3)
+   let x = index % 3
+   element.textContent = boardState[y][x]
+})
+
 // Event Listeners
 
 xSelect.addEventListener('click', startX)
 
 function startX() {
    choice = 'x'
+   firstChoice = 'x'
    console.log(choice)
    startGame()
 }
@@ -48,6 +57,7 @@ oSelect.addEventListener('click', startO)
 
 function startO() {
    choice = 'o'
+   firstChoice = 'o'
    console.log(choice)
    startGame()
 }
@@ -58,7 +68,6 @@ undo.addEventListener('click', () => {
    }
    reOrder(historyClone, historyClone.length - 1, 0)
    boardState = historyClone[historyClone.length - 1]
-
    changeState()
 })
 
@@ -78,6 +87,7 @@ function startGame() {
       element.addEventListener(
          'click',
          e => {
+
             updateBoardState(element)
             changeState()
             alterSelection(element)
@@ -85,8 +95,10 @@ function startGame() {
             if (boardhistory.length > 4) {
                validateGameState()
             }
-         },
-         { once: true }
+
+            element.style.pointerEvents = 'none'
+         }
+         // { once: true }
       )
    })
 }
@@ -175,6 +187,7 @@ function reOrder(arr, from, to) {
 }
 
 function restart() {
+   cellArr.forEach(element => element.style.pointerEvents = 'all')
    gameWon = false
    gameDraw = false
    boardState = [
@@ -183,14 +196,6 @@ function restart() {
       ['', '', ''],
    ]
    boardhistory = []
-   choice = ''
+   choice = firstChoice
    changeState()
-   if(startO){
-      startO()
-   } 
-   if(startX){
-      startX()
-   }
-  
-   startGame()
 }
