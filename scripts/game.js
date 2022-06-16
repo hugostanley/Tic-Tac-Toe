@@ -35,12 +35,7 @@ const winCond = [
    [2, 4, 6],
 ]
 
-cellArr.forEach(element => {
-   let index = cellArr.indexOf(element)
-   let y = Math.floor(index / 3)
-   let x = index % 3
-   element.textContent = boardState[y][x]
-})
+changeState()
 
 // Event Listeners
 
@@ -198,4 +193,6 @@ function restart() {
    boardhistory = []
    choice = firstChoice
    changeState()
+
+  
 }
