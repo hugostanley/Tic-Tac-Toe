@@ -18,7 +18,6 @@ let boardState = [
    ['', '', ''],
 ]
 
-
 let boardhistory = []
 
 const winCond = [
@@ -37,17 +36,21 @@ const winCond = [
 
 // Event Listeners
 
-xSelect.addEventListener('click', () => {
+xSelect.addEventListener('click', startX)
+
+function startX() {
    choice = 'x'
    console.log(choice)
    startGame()
-})
+}
 
-oSelect.addEventListener('click', () => {
+oSelect.addEventListener('click', startO)
+
+function startO() {
    choice = 'o'
    console.log(choice)
    startGame()
-})
+}
 
 undo.addEventListener('click', () => {
    if (historyClone[historyClone.length - 1] === boardhistory[0]) {
@@ -68,7 +71,7 @@ redo.addEventListener('click', () => {
    changeState()
 })
 
-
+reset.addEventListener('click', restart)
 //FUNCTIONS
 function startGame() {
    cellArr.forEach(element => {
@@ -76,7 +79,7 @@ function startGame() {
          'click',
          e => {
             updateBoardState(element)
-            displayCell(element)
+            changeState()
             alterSelection(element)
             updateHistory()
             if (boardhistory.length > 4) {
@@ -99,19 +102,20 @@ function alterSelection(a) {
 }
 
 function updateBoardState(a) {
-   let index = cellArr.indexOf(a)
-   let y = Math.floor(index / 3)
-   let x = index % 3
-   boardState[y][x] = choice
-   return boardState
+   if (startGame) {
+      let index = cellArr.indexOf(a)
+      let y = Math.floor(index / 3)
+      let x = index % 3
+      boardState[y][x] = choice
+   }
 }
 
-function displayCell(a) {
-   let index = cellArr.indexOf(a)
-   let y = Math.floor(index / 3)
-   let x = index % 3
-   a.textContent = boardState[y][x]
-}
+// function displayCell(a) {
+//    let index = cellArr.indexOf(a)
+//    let y = Math.floor(index / 3)
+//    let x = index % 3
+//    a.textContent = boardState[y][x]
+// }
 
 function updateHistory() {
    boardhistory.push(JSON.parse(JSON.stringify(boardState)))
@@ -168,4 +172,25 @@ function stopGame() {
 
 function reOrder(arr, from, to) {
    arr.splice(to, 0, arr.splice(from, 1)[0])
+}
+
+function restart() {
+   gameWon = false
+   gameDraw = false
+   boardState = [
+      ['', '', ''],
+      ['', '', ''],
+      ['', '', ''],
+   ]
+   boardhistory = []
+   choice = ''
+   changeState()
+   if(startO){
+      startO()
+   } 
+   if(startX){
+      startX()
+   }
+  
+   startGame()
 }
