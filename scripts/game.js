@@ -1,5 +1,6 @@
 // DOM SELECTORS
 let cells = document.querySelectorAll('.items')
+const boardCons = document.querySelector('.board-container')
 const xSelect = document.querySelector('[data-x-selection]')
 const oSelect = document.querySelector('[data-o-selection]')
 const btns = document.querySelectorAll('.btns')
@@ -82,22 +83,23 @@ redo.addEventListener('click', () => {
    changeState()
 })
 
-reset.addEventListener('click', startGame)
+reset.addEventListener('click', restart)
 
 //FUNCTIONS
 function startGame() {
-   cellArr.forEach(element => {
-      
-      gameWon = false
-      gameDraw = false
-      boardState = [
-         ['', '', ''],
-         ['', '', ''],
-         ['', '', ''],
-      ]
+   gameWon = false
+   gameDraw = false
+   boardState = [
+      ['', '', ''],
+      ['', '', ''],
+      ['', '', ''],
+   ]
 
-      boardhistory = []
-      changeState()
+   boardhistory = []
+   changeState()
+   hideBtns()
+   
+   cellArr.forEach(element => {
       element.style.pointerEvents = 'all'
       element.removeEventListener('click', handleClick)
       element.addEventListener('click', handleClick, { once: true })
@@ -106,16 +108,16 @@ function startGame() {
 
 function handleClick(e) {
    let element = e.target
-   alterSelection(element)
    updateBoardState(element)
    displayCell(element)
+   alterSelection(element)
    updateHistory()
    if (boardhistory.length > 4) {
-      validateGameState()
+      validateGameState(element)
    }
 }
 function alterSelection(a) {
-   if (currentPlayer === 'x') {
+   if (currentPlayer === xPlayer.character) {
       currentPlayer = oPlayer.character
       a.style.color = xPlayer.color
    } else {
@@ -154,22 +156,26 @@ function updateHistory() {
    historyClone = [...boardhistory]
 }
 
-function validateGameState() {
+function validateGameState(element) {
    let newBoard = boardState.flat()
    for (i = 0; i < winCond.length; i++) {
       const item = winCond[i]
-      const a = newBoard[item[0]]
-      const b = newBoard[item[1]]
-      const c = newBoard[item[2]]
+      const a = cellArr[item[0]]
+      const b = cellArr[item[1]]
+      const c = cellArr[item[2]]
 
-      if (a === '' && b === '' && c === '') {
+      if (a.textContent === '' && b.textContent === '' && c.textContent === '') {
          continue
       }
 
-      if (a === b && b === c) {
+      if (a.textContent === b.textContent && b.textContent === c.textContent) {
          gameWon = true
          showButtons()
          stopGame()
+         // a.classList.add('win')
+         // b.classList.add('win')
+         // c.classList.add('win')
+       
       }
    }
 
@@ -178,6 +184,7 @@ function validateGameState() {
       showButtons()
       stopGame()
    }
+   // highlight()
 }
 
 function showButtons() {
@@ -199,13 +206,33 @@ function reOrder(arr, from, to) {
 
 function restart() {
    currentPlayer = firstChoice
-   gameWon = false
-   gameDraw = false
-   boardState = [
-      ['', '', ''],
-      ['', '', ''],
-      ['', '', ''],
-   ]
-   boardhistory = []
-   changeState()
+   boardCons.classList.add('flip')
+   startGame()
+   boardCons.addEventListener('animationend', ()=> {
+      boardCons.classList.remove('flip')
+      
+   })
+   
+}
+
+function hideBtns() {
+   btns.forEach(element => {
+      element.style.pointerEvents = 'none'
+      element.style.display = 'none'
+   })
+}
+
+function highlight() {
+   for (i = 0; i < winCond.length; i++) {
+      const item = winCond[i]
+      const a = cellArr[item[0]]
+      const b = cellArr[item[1]]
+      const c = cellArr[item[2]]
+
+      if (gameWon) {
+         a.style.color = 'black'
+         b.style.color = 'black'
+         c.style.color = 'black'
+      }
+   }
 }
