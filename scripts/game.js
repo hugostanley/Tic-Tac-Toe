@@ -21,18 +21,9 @@ let boardState = [
    ['', '', ''],
 ]
 let indexMove = []
-let historyPosition = [
-   'Top-left',
-   'Top-middle',
-   'Top-right',
-   'Center-left',
-   'Center-middle',
-   'Center-right',
-   'Bottom-left',
-   'Bottom-middle',
-   'Bottom-right',
-]
-let historyList =[]
+let historyList = []
+
+let historyPosition = ['Top-left', 'Top-middle', 'Top-right', 'Center-left', 'Center-middle', 'Center-right', 'Bottom-left', 'Bottom-middle', 'Bottom-right']
 let boardhistory = []
 
 const winCond = [
@@ -109,6 +100,8 @@ function startGame() {
    ]
 
    boardhistory = []
+   indexMove = []
+   historyList = []
    changeState()
    hideBtns()
 
@@ -116,10 +109,13 @@ function startGame() {
       element.style.pointerEvents = 'all'
       element.removeEventListener('click', handleClick)
       element.addEventListener('click', handleClick, { once: true })
-      element.addEventListener('click', () => {
-         indexMove.push(index)
-
-      },{ once: true })
+      element.addEventListener(
+         'click',
+         () => {
+            indexMove.push(index)
+         },
+         { once: true }
+      )
    })
 }
 
@@ -255,10 +251,8 @@ function highlight() {
    }
 }
 
-function createList(){
-   for(i=0; i<indexMove.length; i++){
-      let asd = indexMove[i]
-      historyList.push(historyPosition[asd])
-      alert(historyList)
+function createList() {
+   for (i = 0; i < indexMove.length; i++) {
+      historyList.push(historyPosition[indexMove[i]])
    }
 }
