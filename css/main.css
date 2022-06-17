@@ -8,6 +8,10 @@
   line-height: 1.3;
 }
 
+li {
+  list-style: none;
+}
+
 main {
   min-height: 100vh;
   width: 100vw;
@@ -44,6 +48,7 @@ main {
   --primary--gray: #b8babb;
   --primary--blue: #08dbd8;
   --primary--pink: #e766e8;
+  --move--up: 0;
 }
 
 @keyframes fadeOut {
@@ -62,11 +67,6 @@ main {
     opacity: 1;
   }
 }
-.flip {
-  animation-name: flip;
-  animation-duration: 500ms;
-}
-
 @keyframes flip {
   0% {
     transform: none;
@@ -78,6 +78,57 @@ main {
     transform: rotateY(9deg);
   }
 }
+@keyframes win {
+  0% {
+    font-size: 3rem;
+  }
+  50% {
+    font-size: 2.9rem;
+  }
+  100% {
+    font-size: 3rem;
+  }
+}
+@keyframes shake {
+  0% {
+    transform: translate(1px, 1px) rotate(0deg);
+  }
+  10% {
+    transform: translate(-1px, -2px) rotate(-1deg);
+  }
+  20% {
+    transform: translate(-3px, 0px) rotate(1deg);
+  }
+  30% {
+    transform: translate(3px, 2px) rotate(0deg);
+  }
+  40% {
+    transform: translate(1px, -1px) rotate(1deg);
+  }
+  50% {
+    transform: translate(-1px, 2px) rotate(-1deg);
+  }
+  60% {
+    transform: translate(-3px, 1px) rotate(0deg);
+  }
+  70% {
+    transform: translate(3px, 1px) rotate(-1deg);
+  }
+  80% {
+    transform: translate(-1px, -1px) rotate(1deg);
+  }
+  90% {
+    transform: translate(1px, 2px) rotate(0deg);
+  }
+  100% {
+    transform: translate(1px, -2px) rotate(-1deg);
+  }
+}
+.flip {
+  animation-name: flip;
+  animation-duration: 500ms;
+}
+
 .fadeOut {
   animation-name: fadeOut;
   animation-duration: 500ms;
@@ -99,15 +150,39 @@ main {
   animation-iteration-count: infinite;
 }
 
-@keyframes win {
+.shake {
+  animation-name: shake;
+  animation-duration: 500ms;
+}
+
+.slideUp {
+  animation-name: slide-up;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-in-out;
+}
+
+@keyframes slide-up {
   0% {
-    font-size: 3rem;
-  }
-  50% {
-    font-size: 2.9rem;
+    transform: translateY(0);
   }
   100% {
-    font-size: 3rem;
+    transform: translateY(var(--move--up));
+  }
+}
+.slideDown {
+  animation-name: slide-down;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-in-out;
+}
+
+@keyframes slide-down {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(0.8em);
   }
 }
 .interface-con {
@@ -203,7 +278,7 @@ main {
 }
 
 .items {
-  background-color: #02192C;
+  background-color: #02192c;
   font-size: 3rem;
 }
 .items:hover {
@@ -242,14 +317,96 @@ main {
   cursor: pointer;
 }
 
-.redo, .undo {
+.historyBtn {
+  visibility: hidden;
+  position: absolute;
+  top: 4%;
+  left: 4%;
+  font-size: 1.3rem;
+}
+.historyBtn:hover {
+  cursor: pointer;
+}
+
+.modalbg {
   display: none;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(65, 62, 62, 0.733);
+  position: absolute;
+  z-index: 999;
+}
+
+.histories {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 15rem;
+  height: 15rem;
+  position: absolute;
+  left: 33%;
+  top: 15%;
+  background: linear-gradient(to right bottom, rgba(0, 0, 0, 0.574), rgba(0, 0, 0, 0.45));
+  backdrop-filter: blur(2rem);
+  box-shadow: 12px 12px 16px 0 rgba(0, 0, 0, 0.25), -8px -8px 12px 0 rgba(25, 25, 25, 0.3);
+  border-radius: 5%;
+}
+
+.historyCon {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  padding: 2%;
+  width: 10rem;
+  height: 10rem;
+  border-radius: 5%;
+  background: transparent;
+  overflow-y: auto;
+}
+.historyCon li {
+  text-align: center;
+}
+
+.redo,
+.undo {
+  visibility: hidden;
   pointer-events: none;
   user-select: none;
 }
 
 .reset {
   visibility: hidden;
+}
+
+.history {
+  visibility: hidden;
+  display: none;
+  overflow: hidden;
+  justify-content: space-around;
+  flex-direction: column;
+  width: 8rem;
+  height: 1rem;
+  align-items: center;
+}
+.history span {
+  font-size: 0.8rem;
+}
+
+.texts {
+  transition: all 0.5s ease;
+}
+
+.close {
+  font-size: 1.3rem;
+  position: absolute;
+  top: 4%;
+  left: 90%;
+  cursor: pointer;
+}
+
+.lists {
+  font-size: 0.9rem;
 }
 
 /*# sourceMappingURL=main.css.map */

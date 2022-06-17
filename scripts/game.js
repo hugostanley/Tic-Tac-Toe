@@ -8,6 +8,13 @@ const redo = document.querySelector('.redo')
 const reset = document.querySelector('.reset')
 const undo = document.querySelector('.undo')
 const interf = document.querySelector('.interface-con')
+const historyDisplay = document.querySelector('.history')
+const historyBtn = document.querySelector('.historyBtn')
+const historyTextDisplay = document.querySelectorAll('.texts')
+const modal = document.querySelector('.modalbg')
+const closeModalBtn = document.querySelector('.close')
+
+const modalList = document.querySelectorAll('.lists')
 
 // Reusable Variables
 let cellArr = [...cells]
@@ -71,6 +78,10 @@ function startO() {
 
 undo.addEventListener('click', () => {
    if (historyClone[historyClone.length - 1] === boardhistory[0]) {
+      boardCons.classList.add('shake')
+      boardCons.addEventListener('animationend', () => {
+         boardCons.classList.remove('shake')
+      })
       return
    }
    reOrder(historyClone, historyClone.length - 1, 0)
@@ -80,6 +91,10 @@ undo.addEventListener('click', () => {
 
 redo.addEventListener('click', () => {
    if (historyClone[historyClone.length - 1] === boardhistory[boardhistory.length - 1]) {
+      boardCons.classList.add('shake')
+      boardCons.addEventListener('animationend', () => {
+         boardCons.classList.remove('shake')
+      })
       return
    }
    reOrder(historyClone, 0, historyClone.length - 1)
@@ -104,6 +119,7 @@ function startGame() {
    historyList = []
    changeState()
    hideBtns()
+   historyDisplay.style.visibility = 'hidden'
 
    cellArr.forEach((element, index) => {
       element.style.pointerEvents = 'all'
@@ -113,6 +129,7 @@ function startGame() {
          'click',
          () => {
             indexMove.push(index)
+            createList(index)
          },
          { once: true }
       )
@@ -184,28 +201,26 @@ function validateGameState(element) {
       if (a.textContent === b.textContent && b.textContent === c.textContent) {
          gameWon = true
          showButtons()
+
          stopGame()
-         createList()
-         // a.classList.add('win')
-         // b.classList.add('win')
-         // c.classList.add('win')
       }
    }
 
    if (!newBoard.includes('')) {
       gameDraw = true
       showButtons()
+
       stopGame()
-      createList()
    }
-   // highlight()
 }
 
 function showButtons() {
-   btns.forEach(element => {
-      element.style.pointerEvents = 'all'
-      element.style.display = 'block'
-   })
+   historyBtn.style.visibility = 'visible'
+   historyBtn.style.pointerEvents = 'all'
+   redo.style.pointerEvents = 'all'
+   undo.style.pointerEvents = 'all'
+   redo.style.visibility = 'visible'
+   undo.style.visibility = 'visible'
 }
 
 function stopGame() {
@@ -219,6 +234,7 @@ function reOrder(arr, from, to) {
 }
 
 function restart() {
+   modalList.forEach(element=> element.textContent = '')
    currentPlayer = firstChoice
    boardCons.classList.add('flip')
    interf.classList.add('flip')
@@ -230,10 +246,12 @@ function restart() {
 }
 
 function hideBtns() {
-   btns.forEach(element => {
-      element.style.pointerEvents = 'none'
-      element.style.display = 'none'
-   })
+   redo.style.pointerEvents = 'none'
+   undo.style.pointerEvents = 'none'
+   redo.style.visibility = 'hidden'
+   undo.style.visibility = 'hidden'
+   historyBtn.style.visibility = 'hidden'
+   historyBtn.style.pointerEvents = 'none'
 }
 
 function highlight() {
@@ -251,8 +269,25 @@ function highlight() {
    }
 }
 
-function createList() {
-   for (i = 0; i < indexMove.length; i++) {
-      historyList.push(historyPosition[indexMove[i]])
-   }
+function createList(index) {
+   historyList.push(historyPosition[index])
+   modalDisplay()
 }
+
+historyBtn.addEventListener('click', () => {
+   modal.style.display = 'block'
+})
+
+closeModalBtn.addEventListener('click', () => {
+   modal.style.display = 'none'
+})
+
+function modalDisplay() {
+  for(i=0; i< historyList.length; i++){
+   modalList[i].textContent = `${i+1}.) ${historyList[i]}`
+  
+  }
+
+ 
+}
+

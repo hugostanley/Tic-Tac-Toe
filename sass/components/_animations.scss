@@ -1,82 +1,146 @@
 @keyframes fadeOut {
-    0% {
-        opacity: 1;
-    }
+   0% {
+      opacity: 1;
+   }
 
-    100%{
-        opacity: 0;
-    }
+   100% {
+      opacity: 0;
+   }
 }
 @keyframes fadeIn {
-    0% {
-        opacity: 0;
-    }
+   0% {
+      opacity: 0;
+   }
 
-    100% {
-        opacity: 1;
-    }
-}
-
-
-.flip{
-    animation-name: flip;
-  animation-duration: 500ms;
- 
-  
-
+   100% {
+      opacity: 1;
+   }
 }
 
 @keyframes flip {
-  0% {
-    transform: none;
-    
-  }
-  
-  50% {
-    transform: rotateY(180deg);
-  
-  }
-  
-  100%{
-    transform: rotateY(9deg);
-  
-  }
-}
+   0% {
+      transform: none;
+   }
 
+   50% {
+      transform: rotateY(180deg);
+   }
 
-.fadeOut{
-    animation-name: fadeOut;
-    animation-duration: 500ms;
-    animation-timing-function: ease-in;
-    animation-fill-mode: forwards;
-}
-
-.fadeIn{
-    animation-name: fadeIn;
-    animation-duration: 500ms;
-    animation-timing-function: ease-in;
-    animation-fill-mode: forwards;
-}
-
-.win {
- 
-    animation-name: win;
-    animation-duration: 1s;
-    animation-timing-function: ease-in-out;
-    
-    animation-iteration-count: infinite;
+   100% {
+      transform: rotateY(9deg);
+   }
 }
 
 @keyframes win {
-    0% {
-        font-size: 3rem;
-    }
+   0% {
+      font-size: 3rem;
+   }
 
-    50% {
-        font-size: 2.9rem;
-    }
+   50% {
+      font-size: 2.9rem;
+   }
 
-    100% {
-        font-size: 3rem;
-    }
+   100% {
+      font-size: 3rem;
+   }
 }
+@keyframes shake {
+   0% {
+      transform: translate(1px, 1px) rotate(0deg);
+   }
+   10% {
+      transform: translate(-1px, -2px) rotate(-1deg);
+   }
+   20% {
+      transform: translate(-3px, 0px) rotate(1deg);
+   }
+   30% {
+      transform: translate(3px, 2px) rotate(0deg);
+   }
+   40% {
+      transform: translate(1px, -1px) rotate(1deg);
+   }
+   50% {
+      transform: translate(-1px, 2px) rotate(-1deg);
+   }
+   60% {
+      transform: translate(-3px, 1px) rotate(0deg);
+   }
+   70% {
+      transform: translate(3px, 1px) rotate(-1deg);
+   }
+   80% {
+      transform: translate(-1px, -1px) rotate(1deg);
+   }
+   90% {
+      transform: translate(1px, 2px) rotate(0deg);
+   }
+   100% {
+      transform: translate(1px, -2px) rotate(-1deg);
+   }
+}
+.flip {
+   animation-name: flip;
+   animation-duration: 500ms;
+}
+
+.fadeOut {
+   animation-name: fadeOut;
+   animation-duration: 500ms;
+   animation-timing-function: ease-in;
+   animation-fill-mode: forwards;
+}
+
+.fadeIn {
+   animation-name: fadeIn;
+   animation-duration: 500ms;
+   animation-timing-function: ease-in;
+   animation-fill-mode: forwards;
+}
+
+.win {
+   animation-name: win;
+   animation-duration: 1s;
+   animation-timing-function: ease-in-out;
+
+   animation-iteration-count: infinite;
+}
+
+.shake {
+   animation-name: shake;
+   animation-duration: 500ms;
+}
+
+.slideUp {
+    animation-name: slide-up;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-in-out;
+ }
+ 
+ @keyframes slide-up {
+    0% {
+       transform: translateY(0);
+    }
+ 
+    100% {
+       transform: translateY(var(--move--up));
+    }
+ }
+
+ .slideDown {
+    animation-name: slide-down;
+    animation-duration: 1s;
+    animation-fill-mode:forwards;
+    animation-timing-function: ease-in-out;
+ }
+ 
+ @keyframes slide-down {
+    0% {
+       transform: translateY(0);
+    }
+ 
+    100% {
+       transform: translateY(0.8em);
+    }
+ }
