@@ -112,35 +112,69 @@
 }
 
 .slideUp {
-    animation-name: slide-up;
-    animation-duration: 1s;
-    animation-fill-mode: forwards;
-    animation-timing-function: ease-in-out;
- }
- 
- @keyframes slide-up {
-    0% {
-       transform: translateY(0);
-    }
- 
-    100% {
-       transform: translateY(var(--move--up));
-    }
- }
+   animation-name: slide-up;
+   animation-duration: 1s;
+   animation-fill-mode: forwards;
+   animation-timing-function: ease-in-out;
+}
 
- .slideDown {
-    animation-name: slide-down;
-    animation-duration: 1s;
-    animation-fill-mode:forwards;
-    animation-timing-function: ease-in-out;
- }
- 
- @keyframes slide-down {
-    0% {
-       transform: translateY(0);
-    }
- 
-    100% {
-       transform: translateY(0.8em);
-    }
- }
+@keyframes slide-up {
+   0% {
+      transform: translateY(0);
+   }
+
+   100% {
+      transform: translateY(var(--move--up));
+   }
+}
+
+.slideDown {
+   animation-name: slide-down;
+   animation-duration: 1s;
+   animation-fill-mode: forwards;
+   animation-timing-function: ease-in-out;
+}
+
+@keyframes slide-down {
+   0% {
+      transform: translateY(0);
+   }
+
+   100% {
+      transform: translateY(0.8em);
+   }
+}
+
+.changeCol {
+   animation-name: backgroundCol;
+   animation-duration: 500ms;
+   animation-fill-mode: forwards;
+   animation-timing-function: ease-in-out;
+}
+
+@keyframes backgroundCol {
+   0% {
+      background-color: #02192c;
+   }
+
+   100% {
+      background-color: #02192c27;
+   }
+}
+
+.reverseCol {
+   animation-name: backgroundCol;
+   animation-duration: 500ms;
+   animation-fill-mode: forwards;
+   animation-timing-function: ease-in-out;
+}
+
+@keyframes backgroundCol {
+   0% {
+      background-color: #02192c27;
+   }
+
+   100% {
+      background-color: #02192c;
+   }
+}

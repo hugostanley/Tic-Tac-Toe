@@ -16,6 +16,8 @@ const closeModalBtn = document.querySelector('.close')
 
 const modalList = document.querySelectorAll('.lists')
 
+const textAnnounce = document.querySelector('.game-state-text')
+
 // Reusable Variables
 let cellArr = [...cells]
 let firstChoice = ''
@@ -122,6 +124,7 @@ function startGame() {
    historyDisplay.style.visibility = 'hidden'
 
    cellArr.forEach((element, index) => {
+      element.classList.remove('changeCol')
       element.style.pointerEvents = 'all'
       element.removeEventListener('click', handleClick)
       element.addEventListener('click', handleClick, { once: true })
@@ -200,14 +203,19 @@ function validateGameState(element) {
 
       if (a.textContent === b.textContent && b.textContent === c.textContent) {
          gameWon = true
-         showButtons()
 
+         showButtons()
          stopGame()
+         changeColor(a,b,c)
       }
    }
 
    if (!newBoard.includes('')) {
       gameDraw = true
+      boardCons.classList.add('shake')
+      boardCons.addEventListener('animationend', () => {
+         boardCons.classList.remove('shake')
+      })
       showButtons()
 
       stopGame()
@@ -234,7 +242,7 @@ function reOrder(arr, from, to) {
 }
 
 function restart() {
-   modalList.forEach(element=> element.textContent = '')
+   modalList.forEach(element => (element.textContent = ''))
    currentPlayer = firstChoice
    boardCons.classList.add('flip')
    interf.classList.add('flip')
@@ -283,11 +291,15 @@ closeModalBtn.addEventListener('click', () => {
 })
 
 function modalDisplay() {
-  for(i=0; i< historyList.length; i++){
-   modalList[i].textContent = `${i+1}.) ${historyList[i]}`
-  
-  }
-
- 
+   for (i = 0; i < historyList.length; i++) {
+      modalList[i].textContent = `${i + 1}.) ${historyList[i]}`
+   }
 }
 
+function changeColor(a,b,c){
+   a.classList.add('changeCol')
+   b.classList.add('changeCol')
+   c.classList.add('changeCol')
+
+  
+}
