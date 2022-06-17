@@ -1,22 +1,16 @@
 // DOM SELECTORS
-let cells = document.querySelectorAll('.items')
+const cells = document.querySelectorAll('.items')
 const boardCons = document.querySelector('.board-container')
 const xSelect = document.querySelector('[data-x-selection]')
 const oSelect = document.querySelector('[data-o-selection]')
-const btns = document.querySelectorAll('.btns')
 const redo = document.querySelector('.redo')
 const reset = document.querySelector('.reset')
 const undo = document.querySelector('.undo')
 const interf = document.querySelector('.interface-con')
-const historyDisplay = document.querySelector('.history')
 const historyBtn = document.querySelector('.historyBtn')
-const historyTextDisplay = document.querySelectorAll('.texts')
 const modal = document.querySelector('.modalbg')
 const closeModalBtn = document.querySelector('.close')
-
 const modalList = document.querySelectorAll('.lists')
-
-const textAnnounce = document.querySelector('.game-state-text')
 
 // Reusable Variables
 let cellArr = [...cells]
@@ -31,10 +25,8 @@ let boardState = [
 ]
 let indexMove = []
 let historyList = []
-
 let historyPosition = ['Top-left', 'Top-middle', 'Top-right', 'Center-left', 'Center-middle', 'Center-right', 'Bottom-left', 'Bottom-middle', 'Bottom-right']
 let boardhistory = []
-
 const winCond = [
    // x axis
    [0, 1, 2],
@@ -53,7 +45,6 @@ changeState()
 
 function Player(character, color) {
    this.character = character
-   this.score = 0
    this.color = color
 }
 
@@ -63,20 +54,6 @@ const oPlayer = new Player('o', 'var(--primary--pink)')
 
 xSelect.addEventListener('click', startX)
 oSelect.addEventListener('click', startO)
-
-function startX() {
-   currentPlayer = xPlayer.character
-   firstChoice = xPlayer.character
-   console.log(currentPlayer)
-   startGame()
-}
-
-function startO() {
-   currentPlayer = oPlayer.character
-   firstChoice = oPlayer.character
-   console.log(currentPlayer)
-   startGame()
-}
 
 undo.addEventListener('click', () => {
    if (historyClone[historyClone.length - 1] === boardhistory[0]) {
@@ -106,7 +83,29 @@ redo.addEventListener('click', () => {
 
 reset.addEventListener('click', restart)
 
+historyBtn.addEventListener('click', () => {
+   modal.style.display = 'block'
+})
+
+closeModalBtn.addEventListener('click', () => {
+   modal.style.display = 'none'
+})
+
 //FUNCTIONS
+function startX() {
+   currentPlayer = xPlayer.character
+   firstChoice = xPlayer.character
+
+   startGame()
+}
+
+function startO() {
+   currentPlayer = oPlayer.character
+   firstChoice = oPlayer.character
+
+   startGame()
+}
+
 function startGame() {
    gameWon = false
    gameDraw = false
@@ -121,7 +120,6 @@ function startGame() {
    historyList = []
    changeState()
    hideBtns()
-   historyDisplay.style.visibility = 'hidden'
 
    cellArr.forEach((element, index) => {
       element.classList.remove('changeCol')
@@ -149,6 +147,7 @@ function handleClick(e) {
       validateGameState(element)
    }
 }
+
 function alterSelection(a) {
    if (currentPlayer === xPlayer.character) {
       currentPlayer = oPlayer.character
@@ -203,21 +202,20 @@ function validateGameState(element) {
 
       if (a.textContent === b.textContent && b.textContent === c.textContent) {
          gameWon = true
-
          showButtons()
          stopGame()
-         changeColor(a,b,c)
+         changeColor(a, b, c)
       }
    }
 
-   if (!newBoard.includes('')) {
+   if (!newBoard.includes('') && gameWon === false) {
       gameDraw = true
       boardCons.classList.add('shake')
       boardCons.addEventListener('animationend', () => {
          boardCons.classList.remove('shake')
       })
-      showButtons()
 
+      showButtons()
       stopGame()
    }
 }
@@ -247,6 +245,7 @@ function restart() {
    boardCons.classList.add('flip')
    interf.classList.add('flip')
    startGame()
+
    boardCons.addEventListener('animationend', () => {
       boardCons.classList.remove('flip')
       interf.classList.remove('flip')
@@ -262,33 +261,10 @@ function hideBtns() {
    historyBtn.style.pointerEvents = 'none'
 }
 
-function highlight() {
-   for (i = 0; i < winCond.length; i++) {
-      const item = winCond[i]
-      const a = cellArr[item[0]]
-      const b = cellArr[item[1]]
-      const c = cellArr[item[2]]
-
-      if (gameWon) {
-         a.style.color = 'black'
-         b.style.color = 'black'
-         c.style.color = 'black'
-      }
-   }
-}
-
 function createList(index) {
    historyList.push(historyPosition[index])
    modalDisplay()
 }
-
-historyBtn.addEventListener('click', () => {
-   modal.style.display = 'block'
-})
-
-closeModalBtn.addEventListener('click', () => {
-   modal.style.display = 'none'
-})
 
 function modalDisplay() {
    for (i = 0; i < historyList.length; i++) {
@@ -296,10 +272,8 @@ function modalDisplay() {
    }
 }
 
-function changeColor(a,b,c){
+function changeColor(a, b, c) {
    a.classList.add('changeCol')
    b.classList.add('changeCol')
    c.classList.add('changeCol')
-
-  
 }
